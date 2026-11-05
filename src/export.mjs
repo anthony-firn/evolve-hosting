@@ -15,7 +15,11 @@ export async function exportStatic(bundlePath, key, destination) {
     for (const [path, bytes] of release.files) await write(path, bytes);
     await write('.well-known/evolve-hosting.json', JSON.stringify(mirrorMetadata(release)) + '\n');
     await write('__evolve/release.json', release.bytes); await write('__evolve/publisher.pub.pem', key);
-    for (const name of ['index.html', 'app.js', 'style.css', 'THIRD-PARTY-LICENSES.txt']) await write('__evolve/' + name, await readBounded(new URL('../public/' + name, import.meta.url)));
+    for (const name of ['index.html', 'app.js', 'style.css', 'THIRD-PARTY-LICENSES.txt']) {
+      let content = await readBounded(new URL('../public/' + name, import.meta.url));
+      if (name === 'index.html') content = content.toString('utf8').replace('href="./example/" id="open-example"', 'href="../" id="open-example"');
+      await write('__evolve/' + name, content);
+    }
     await write('_headers', '/*\n' + Object.entries({ ...securityHeaders, 'Access-Control-Allow-Origin': '*' }).map(([name, value]) => `  ${name}: ${value}`).join('\n') + '\n');
     await chmod(staging, 0o755); await rename(staging, output);
   } finally { await rm(staging, { recursive: true, force: true }); }

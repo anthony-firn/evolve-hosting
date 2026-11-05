@@ -63,6 +63,7 @@ test('static export verifies before writing and never replaces an existing direc
   const metadata = JSON.parse(await readFile(join(output, '.well-known/evolve-hosting.json'), 'utf8'));
   assert.equal(metadata.releaseId, f.release.id);
   assert.ok((await readFile(join(output, '__evolve/app.js'))).length > 0);
+  assert.match(await readFile(join(output, '__evolve/index.html'), 'utf8'), /href="\.\.\/" id="open-example"/);
   await assert.rejects(exportStatic(f.bundle, f.key, output), { code: 'E_EXISTS' });
   const bad = join(f.root, 'bad.json'), corrupt = structuredClone(f.release.envelope); corrupt.signature = 'A'.repeat(86) + '==';
   await writeFile(bad, JSON.stringify(corrupt));

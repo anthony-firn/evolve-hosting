@@ -30,7 +30,9 @@ export async function serve({ store, key, host = '127.0.0.1', port = 4198 }) {
       if (path.startsWith('/__evolve/')) {
         const name = path.slice('/__evolve/'.length) || 'index.html';
         if (!['index.html', 'app.js', 'style.css', 'THIRD-PARTY-LICENSES.txt'].includes(name)) return send(404, 'Not found', 'text/plain');
-        return send(200, await readFile(fileURLToPath(new URL('../public/' + name, import.meta.url))), types[name.split('.').at(-1)]);
+        let content = await readFile(fileURLToPath(new URL('../public/' + name, import.meta.url)));
+        if (name === 'index.html') content = content.toString('utf8').replace('href="./example/" id="open-example"', 'href="../" id="open-example"');
+        return send(200, content, types[name.split('.').at(-1)]);
       }
       if (path === '/__evolve') return send(308, '', 'text/plain', { Location: '/__evolve/' });
       const asset = path === '/' ? 'index.html' : path.slice(1);
