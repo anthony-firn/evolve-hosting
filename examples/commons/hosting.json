@@ -1,0 +1,42 @@
+{
+  "schema": "evolve-hosting.release.v1",
+  "project": {
+    "id": "commons-board",
+    "name": "Commons Board",
+    "description": "A small browser app to demonstrate a signed release running on independent mirrors."
+  },
+  "version": "0.1.0",
+  "sequence": 1,
+  "root": "web",
+  "include": [
+    "index.html",
+    "style.css",
+    "board.js",
+    "LICENSE.txt",
+    "NOTICE.txt"
+  ],
+  "mirrors": [
+    {
+      "name": "EvolveTech primary provider",
+      "url": "https://www.evolvetech.dev/play/evolve-hosting/example/"
+    },
+    {
+      "name": "EvolveTech backup provider",
+      "url": "https://evolvetech-dev.b-cdn.net/play/evolve-hosting/example/"
+    }
+  ],
+  "support": {
+    "fairgroundURL": "https://www.evolvetech.dev/play/fairground/#/about",
+    "recipients": [
+      {
+        "id": "evolvetech",
+        "name": "EvolveTech development",
+        "role": "development",
+        "address": "WMQHGXHHWQVUN2VIZQJ5OO2GSH5Q33CVABJUCLJHP4UHLTTMS2HE3W6FEM",
+        "reviewed": true,
+        "origin": "https://www.evolvetech.dev/"
+      }
+    ]
+  },
+  "backends": []
+}

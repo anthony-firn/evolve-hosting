@@ -1,0 +1,35 @@
+{
+  "name": "evolve-hosting",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Signed static app releases, independent mirrors and direct support through Fairground's payment rail.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Anthony Firn",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "bin": {
+    "evolve-hosting": "bin/evolve-hosting.mjs"
+  },
+  "exports": {
+    ".": "./src/release.mjs",
+    "./support": "./src/support.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "build": "node tools/build.mjs",
+    "demo:release": "node tools/demo-release.mjs",
+    "drill": "node tools/drill.mjs",
+    "preview": "node tools/preview.mjs",
+    "test:e2e": "node test/browser.mjs"
+  },
+  "dependencies": {
+    "@noble/hashes": "^2.4.0",
+    "@scure/base": "^2.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.64.1"
+  }
+}

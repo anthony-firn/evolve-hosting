@@ -1,0 +1,8 @@
+node_modules/
+.private/
+.state/
+dist/
+*.key.pem
+.env
+.env.*
+.DS_Store

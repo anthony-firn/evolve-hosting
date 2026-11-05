@@ -1,0 +1,28 @@
+{
+  "schema": "evolve-hosting.drill.v1",
+  "at": "2026-11-05T04:42:15.845Z",
+  "node": "v22.23.4",
+  "scope": "Two independent Node CLI processes on loopback, separate mirror stores; no DNS changes or production outages.",
+  "releaseId": "2102c7cc31cdf90826d94aae3ad983c91bf45fc1b715944cabe0ed3d314fefff",
+  "publisherFingerprint": "16cca6ccea13a6058327da453aa583a1145ba6e994be36859f7e0fd70ecbdcbc",
+  "files": 5,
+  "publicBytes": 15123,
+  "checks": {
+    "independentProcesses": true,
+    "identicalAppResponses": true,
+    "corruptUpdateRejected": true,
+    "priorReleasePreserved": true,
+    "stoppedMirrorUnreachable": true,
+    "remainingMirrorReportsSameRelease": true
+  },
+  "timingsMs": {
+    "activateTwoStores": 9.15,
+    "failedMirrorProbe": 1.84,
+    "remainingMirrorProbe": 3.6
+  },
+  "cost": {
+    "paidResourcesProvisioned": false,
+    "cloudOperations": false,
+    "note": "Existing local machine supplied CPU and storage. This drill does not measure worldwide availability, DNS recovery or production hosting expense."
+  }
+}

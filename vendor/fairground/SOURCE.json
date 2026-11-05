@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/anthony-firn/fairground",
+  "commit": "3fe87f9b7314908ceaaa2a0e70129a6c0b147d4f",
+  "files_sha256": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "src/rails/algorand.ts": "c6318bcfc32bfef5c032ea3e86fc9a5f2b9fdaac549c709ef4ecc27200e3b46b",
+    "src/rails/rail.ts": "e21f2e763f6af98c217d502c904c04c771673af23c28c5dac30dfa0e61532ec9"
+  }
+}
