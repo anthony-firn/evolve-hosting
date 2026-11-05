@@ -5,6 +5,7 @@ import { canonical, HostingError, LIMITS, parseEnvelope, requireThat, safePath, 
 import { isAlgorandAddress } from '../vendor/fairground/src/rails/algorand.ts';
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 export function publicKey(pem) {
+  requireThat((typeof pem === 'string' || Buffer.isBuffer(pem)) && /^-----BEGIN PUBLIC KEY-----\s+[A-Za-z0-9+/=\s]+-----END PUBLIC KEY-----\s*$/.test(pem.toString()), 'E_KEY', 'Supply only a public Ed25519 SPKI PEM key. Private keys are never accepted as trust-key inputs.');
   let key; try { key = createPublicKey(pem); } catch { throw new HostingError('E_KEY', 'Could not read public key.'); }
   requireThat(key.asymmetricKeyType === 'ed25519', 'E_KEY', 'An Ed25519 public key is required.'); return key;
 }

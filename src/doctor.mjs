@@ -9,7 +9,7 @@ export async function doctor({ bundle, key, checkMirrors = false, fetch: request
       const response = await request(url, { redirect: 'error', signal: AbortSignal.timeout(5000), headers: { Accept: 'application/json' } });
       if (!response.ok) throw Error();
       const reader = response.body.getReader(); let length = 0; const chunks = [];
-      try { while (true) { const { done, value } = await reader.read(); if (done) break; length += value.length; if (length > 100_000) throw Error(); chunks.push(value); } }
+      try { while (true) { const { done, value } = await reader.read(); if (done) break; length += value.length; if (length > 256_000) throw Error(); chunks.push(value); } }
       finally { await reader.cancel().catch(() => {}); }
       const metadata = JSON.parse(Buffer.concat(chunks).toString());
       const ok = metadata.schema === 'evolve-hosting.mirror.v1' && metadata.releaseId === release.id && metadata.fingerprint === release.fingerprint;

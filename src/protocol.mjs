@@ -23,6 +23,7 @@ export function safePath(path) {
   return path;
 }
 export function publicURL(value, { loopback = false } = {}) {
+  requireThat(typeof value === 'string' && value.length <= 2048, 'E_URL', 'URL must be a string of at most 2048 characters.');
   let url; try { url = new URL(value); } catch { throw new HostingError('E_URL', 'A complete HTTPS URL is required.'); }
   requireThat(!url.username && !url.password && !url.search && !url.hash && (url.protocol === 'https:' || loopback && url.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)), 'E_URL', 'Use HTTPS; HTTP is allowed only for explicit loopback mirrors.');
   return url;

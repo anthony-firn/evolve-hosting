@@ -27,7 +27,7 @@ Reference: [Node crypto](https://nodejs.org/docs/latest-v22.x/api/crypto.html), 
 
 ## Trust root and bootstrap
 
-An operator obtains a public key through a separate trusted channel and supplies it explicitly to the CLI. Bundles contain no authority to choose or replace that key. An active store pins its project identity and key fingerprint. A different project's release, unexpected signer or non-increasing update sequence is refused. Explicit rollback changes to the retained previous release while retaining the highest sequence seen.
+An operator obtains a public key through a separate trusted channel and supplies it explicitly to the CLI. Bundles contain no authority to choose or replace that key. Verification, export and serving accept only public SPKI PEM inputs; a private signing key is refused rather than being reflected by public inspection endpoints. An active store pins its project identity and key fingerprint. A different project's release, unexpected signer or non-increasing update sequence is refused. Explicit rollback changes to the retained previous release while retaining the highest sequence seen.
 
 The browser verifies a bundle but cannot establish trust in the page that delivered its own code or key. An untrusted mirror can replace both. Use a trusted HTTPS bootstrap and an independently obtained key, or verify locally with a trusted CLI. A valid signature establishes publisher authorization, not that the app is benign, audited, or correct. Serve distinct publishers on distinct origins: same-origin apps can access one another's browser storage. The example's private checklist does not sync between mirror origins.
 

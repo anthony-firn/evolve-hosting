@@ -73,7 +73,7 @@ $('check-mirrors').onclick = async () => {
       const row = $('mirror-list').children[i], state = row.querySelector('.status');
       state.textContent = 'Checking…';
       try {
-        const result = JSON.parse(await boundedText(new URL('.well-known/evolve-hosting.json', mirror.url), 100_000));
+        const result = JSON.parse(await boundedText(new URL('.well-known/evolve-hosting.json', mirror.url), 256_000));
         if (result.schema !== 'evolve-hosting.mirror.v1' || result.releaseId !== release.id || result.fingerprint !== release.fingerprint) throw Error();
         state.textContent = 'Reports this release'; state.classList.remove('error');
       } catch { state.textContent = 'Unavailable or reports a different release'; state.classList.add('error'); }

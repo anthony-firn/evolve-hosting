@@ -39,6 +39,8 @@ test('signed manifests still enforce paths, sizes, counts and strict schemas', a
     m => m.sequence = 0,
     m => m.mirrors = [{ name: 'Credentials in URL', url: 'https://user:secret@example.org/' }],
     m => m.support.recipients[0].reviewed = false,
+    m => m.mirrors = [{ name: 'Overlong URL', url: 'https://example.org/' + 'x'.repeat(2048) + '/' }],
+    m => m.mirrors = [{ name: 'Wrong URL type', url: ['https://example.org/'] }],
     m => m.backends = [{ name: 'API', purpose: 'Wrong scheme', url: 'javascript:alert(1)' }],
   ]) {
     const envelope = structuredClone(f.release.envelope); modify(envelope.manifest);
@@ -71,4 +73,15 @@ test('key generation and release output never overwrite existing files', async t
   await assert.rejects(generateKeys(secondPrivate, f.publicPath), { code: 'EEXIST' });
   await assert.rejects(readFile(secondPrivate), { code: 'ENOENT' });
   await assert.rejects(pack(f.configPath, f.keyPath, f.bundle), { code: 'EEXIST' });
+});
+
+test('a private signing key cannot be used as a trust input or exposed by an operator', async t => {
+  const f = await fixture(t), privateKey = await readFile(f.keyPath);
+  assert.throws(() => verifyBundle(f.release.envelope, privateKey), { code: 'E_KEY' });
+  const { activate } = await import('../src/store.mjs');
+  const { serve } = await import('../src/server.mjs');
+  const { exportStatic } = await import('../src/export.mjs');
+  await activate(f.bundle, f.store, f.key);
+  await assert.rejects(serve({ store: f.store, key: privateKey, port: 0 }), { code: 'E_KEY' });
+  await assert.rejects(exportStatic(f.bundle, privateKey, join(f.root, 'private-key-export')), { code: 'E_KEY' });
 });
