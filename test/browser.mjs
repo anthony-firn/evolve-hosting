@@ -20,7 +20,8 @@ try {
   });
   await page.goto('http://127.0.0.1:4199/');
   await page.getByText('Bundle verified', { exact: true }).waitFor();
-  assert.equal(await page.locator('#file-count').textContent(), '5'); assert.equal(external.length, 0);
+  assert.equal(await page.locator('#file-count').textContent(), '5');
+  assert.equal(await page.getByRole('link', { name: 'Set up your wallet, step by step ↗', exact: true }).getAttribute('href'), 'https://www.evolvetech.dev/wallet-setup/'); assert.equal(external.length, 0);
   await page.screenshot({ path: '/tmp/evolve-hosting-desktop.png', fullPage: true });
   await page.getByRole('button', { name: 'Check mirrors', exact: true }).click();
   await page.getByText('Unavailable or reports a different release').first().waitFor();

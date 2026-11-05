@@ -68,6 +68,8 @@ Doctor is offline unless `--check-mirrors` is passed. Network checks contact the
 
 ## Donations through Fairground
 
+New users can follow the [wallet setup walkthrough](https://www.evolvetech.dev/wallet-setup/) to save or restore an account, transfer ALGO without Meld, and check USDC readiness. No recovery credentials belong on that public guide.
+
 The browser uses pinned, Apache-licensed [Fairground payment rail code](vendor/fairground/SOURCE.json), rather than a new payment processor. A donor explicitly selects recipients and amounts, readiness is checked on Algorand mainnet, and an ARC-26 link opens the donor's external wallet. Each payment goes directly to its recipient in native USDC on Algorand. A unique public note binds it to the project, recipient and payment session.
 
 The donor pastes a transaction ID to confirm it. The checker requires the correct network, asset, recipient, **exact** amount, unique note and confirmation window. Used IDs cannot satisfy another payment in that confirmation session. Split payments remain separate wallet actions; partial completion is possible. The application never signs a transaction, stores wallet keys, pools funds, or automatically retries payments. No card/bank checkout or automatic hosting rewards are included. An existing link opens Fairground's full support flow separately.

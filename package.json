@@ -1,6 +1,6 @@
 {
   "name": "evolve-hosting",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Signed static app releases, independent mirrors and direct support through Fairground's payment rail.",
   "type": "module",
